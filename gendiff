@@ -3,7 +3,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use function Hexlet\Code\genDiff;
+use function Gendiff\gendiff;
 
 [$script, $path1, $path2] = $argv;
 

@@ -1,38 +1,40 @@
 <?php
 
-namespace Hexlet\Code;
+namespace Gendiff;
 
-use Funct\Collection;
+use function Gendiff\Parsers\parse;
 
-function genDiff(string $path1, string $path2): string
+function gendiff(string $path1, string $path2): string
 {
-    $data1 = json_decode(file_get_contents($path1), true);
-    $data2 = json_decode(file_get_contents($path2), true);
+    $data1 = parse($path1);
+    $data2 = parse($path2);
 
-    $allKeys = array_keys(array_merge($data1, $data2));
-    $sortedKeys = Collection\sortBy($allKeys, fn($key) => $key);
+    $keys = array_keys(array_merge($data1, $data2));
+    sort($keys);
 
-    $lines = array_map(function ($key) use ($data1, $data2) {
-        $has1 = array_key_exists($key, $data1);
-        $has2 = array_key_exists($key, $data2);
+    $lines = ['{'];
+
+    foreach ($keys as $key) {
         $val1 = $data1[$key] ?? null;
         $val2 = $data2[$key] ?? null;
 
-        if ($has1 && !$has2) {
-            return "  - {$key}: " . toString($val1);
-        } elseif (!$has1 && $has2) {
-            return "  + {$key}: " . toString($val2);
+        if (!array_key_exists($key, $data2)) {
+            $lines[] = "  - {$key}: " . toString($val1);
+        } elseif (!array_key_exists($key, $data1)) {
+            $lines[] = "  + {$key}: " . toString($val2);
         } elseif ($val1 !== $val2) {
-            return "  - {$key}: " . toString($val1) . "\n  + {$key}: " . toString($val2);
+            $lines[] = "  - {$key}: " . toString($val1);
+            $lines[] = "  + {$key}: " . toString($val2);
         } else {
-            return "    {$key}: " . toString($val1);
+            $lines[] = "    {$key}: " . toString($val1);
         }
-    }, $sortedKeys);
+    }
 
-    return "{\n" . implode("\n", $lines) . "\n}";
+    $lines[] = '}';
+    return implode("\n", $lines);
 }
 
-function toString($value): string
+function toString(mixed $value): string
 {
-    return is_bool($value) ? ($value ? 'true' : 'false') : (string) $value;
+    return is_bool($value) ? ($value ? 'true' : 'false') : (string)$value;
 }

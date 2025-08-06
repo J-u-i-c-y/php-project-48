@@ -2,12 +2,14 @@
     "name": "hexlet/code",
     "autoload": {
         "psr-4": {
-            "Hexlet\\Code\\": "src/"
+            "Gendiff\\": "src/"
         },
         "files": [
-            "src/Diff.php"
+            "src/Diff.php",
+            "src/Parsers.php"
         ]
     },
+    "bin": ["gendiff"],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
@@ -19,9 +21,8 @@
             "email": "co4hbly@yandex.by"
         }
     ],
-    
     "require": {
-        "funct/funct": "^1.6"
+        "symfony/yaml": "^7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.3",

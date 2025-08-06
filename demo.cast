@@ -1,0 +1,13 @@
+{"version": 2, "width": 140, "height": 16, "timestamp": 1754477574, "env": {"SHELL": "/bin/zsh", "TERM": "xterm-256color"}}
+[0.023564, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                                                           \r \r"]
+[0.024246, "o", "\r\u001b[0m\u001b[27m\u001b[24m\u001b[Juser@MBP-User-2 php-project-48 % \u001b[K\u001b[?2004h"]
+[0.743344, "o", "\u001b[7m./gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml\u001b[27m\r\r\n\u001b[K"]
+[1.720699, "o", "\u001b[A\u001b[33C\u001b[27m.\u001b[27m/\u001b[27mg\u001b[27me\u001b[27mn\u001b[27md\u001b[27mi\u001b[27mf\u001b[27mf\u001b[27m \u001b[27mt\u001b[27me\u001b[27ms\u001b[27mt\u001b[27ms\u001b[27m/\u001b[27mf\u001b[27mi\u001b[27mx\u001b[27mt\u001b[27mu\u001b[27mr\u001b[27me\u001b[27ms\u001b[27m/\u001b[27mf\u001b[27mi\u001b[27ml\u001b[27me\u001b[27m1\u001b[27m.\u001b[27my\u001b[27mm\u001b[27ml\u001b[27m \u001b[27mt\u001b[27me\u001b[27ms\u001b[27mt\u001b[27ms\u001b[27m/\u001b[27mf\u001b[27mi\u001b[27mx\u001b[27mt\u001b[27mu\u001b[27mr\u001b[27me\u001b[27ms\u001b[27m/\u001b[27mf\u001b[27mi\u001b[27ml\u001b[27me\u001b[27m2\u001b[27m.\u001b[27my\u001b[27mm\u001b[27ml\u001b[1B\r\u001b[K\u001b[?2004l\r\r\n"]
+[1.919774, "o", "{\r\n    follow: false\r\n    host: hexlet.io\r\n  - proxy: 123.234.53.22\r\n  - timeout: 50\r\n  + timeout: 20\r\n  + verbose: true\r\n}"]
+[1.926888, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                                                           \r \r"]
+[1.927013, "o", "\r\u001b[0m\u001b[27m\u001b[24m\u001b[Juser@MBP-User-2 php-project-48 % \u001b[K\u001b[?2004h"]
+[3.909127, "o", "e"]
+[4.135909, "o", "\bex"]
+[4.281772, "o", "i"]
+[4.436199, "o", "t"]
+[5.285278, "o", "\u001b[?2004l\r\r\n"]
