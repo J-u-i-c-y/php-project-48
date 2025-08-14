@@ -3,6 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Gendiff\gendiff;
 
 class DiffPlainTest extends TestCase

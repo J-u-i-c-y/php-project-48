@@ -39,4 +39,3 @@ function parseYaml(string $content): array
 
     return $parsed;
 }
-

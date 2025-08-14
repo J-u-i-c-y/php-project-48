@@ -3,6 +3,7 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Gendiff\Differ\genDiff;
 
 class JsonFormatterTest extends TestCase
