@@ -1,10 +1,20 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use function Gendiff\gendiff;
 
-[$script, $path1, $path2] = $argv;
+$options = getopt('', ['format:']);
+$args = array_values(array_diff($argv, ['--format', $options['format'] ?? null]));
 
-echo genDiff($path1, $path2);
+$path1 = $args[1] ?? null;
+$path2 = $args[2] ?? null;
+$format = $options['format'] ?? 'stylish';
+
+if (!$path1 || !$path2) {
+    fwrite(STDERR, "Usage: gendiff [--format FORMAT] file1 file2\n");
+    exit(1);
+}
+
+echo gendiff($path1, $path2, $format) . PHP_EOL;

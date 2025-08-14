@@ -16,5 +16,17 @@ $ gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml
 }
 ```
 
-## Example
+## Example of Yml
 [![asciicast](https://asciinema.org/a/EHvDiPWNCmEOxIEUvudJ0COfD.svg)](https://asciinema.org/a/EHvDiPWNCmEOxIEUvudJ0COfD)
+
+## Example of Json
+[![asciicast](https://asciinema.org/a/zZswWTNMloWEysVRhtradYkn8.svg)](https://asciinema.org/a/zZswWTNMloWEysVRhtradYkn8)
+
+## Plain Example
+[![asciicast](https://asciinema.org/a/bUjOxsg42DyOcENwyiJdIdU9s.svg)](https://asciinema.org/a/bUjOxsg42DyOcENwyiJdIdU9s)
+
+## Stylish Example
+[![asciicast](https://asciinema.org/a/lsPbTAusBKpi0Fs2nlEciVIvt.svg)](https://asciinema.org/a/lsPbTAusBKpi0Fs2nlEciVIvt)
+
+## Json Example
+[![asciicast](https://asciinema.org/a/nlIQyIvgl2vLHZggXQnHA8gXt.svg)](https://asciinema.org/a/nlIQyIvgl2vLHZggXQnHA8gXt)

@@ -6,7 +6,11 @@
         },
         "files": [
             "src/Diff.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/Formatters/index.php",
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php",
+            "src/Formatters/Json.php"
         ]
     },
     "bin": ["gendiff"],
