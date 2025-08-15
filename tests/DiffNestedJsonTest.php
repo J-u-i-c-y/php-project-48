@@ -4,7 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\genDiff;
+use function Differ\genDiff;
 
 class DiffNestedJsonTest extends TestCase
 {

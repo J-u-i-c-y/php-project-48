@@ -1,9 +1,9 @@
 <?php
 
-namespace Gendiff;
+namespace Differ;
 
-use function Gendiff\Parsers\parse;
-use function Gendiff\Formatters\format;
+use function Differ\Parsers\parse;
+use function Differ\Formatters\format;
 
 function genDiff(string $path1, string $path2, string $formatName = 'stylish'): string
 {

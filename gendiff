@@ -3,7 +3,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use function Gendiff\genDiff;
+use function Differ\genDiff;
 
 $options = getopt('', ['format:']);
 $args = array_values(array_diff($argv, ['--format', $options['format'] ?? null]));

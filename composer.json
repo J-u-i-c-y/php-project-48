@@ -2,7 +2,7 @@
     "name": "hexlet/code",
     "autoload": {
         "psr-4": {
-            "Gendiff\\": "src/"
+            "Differ\\": "src/"
         },
         "files": [
             "src/Differ.php",
