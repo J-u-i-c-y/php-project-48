@@ -7,8 +7,8 @@ use function Gendiff\Formatters\format;
 
 function genDiff(string $path1, string $path2, string $formatName = 'stylish'): string
 {
-    $data1 = parse(file_get_contents($path1), pathinfo($path1, PATHINFO_EXTENSION));
-    $data2 = parse(file_get_contents($path2), pathinfo($path2, PATHINFO_EXTENSION));
+    $data1 = parse($path1);
+    $data2 = parse($path2);
 
     $diffTree = buildDiff($data1, $data2);
 
