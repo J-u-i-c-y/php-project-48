@@ -4,7 +4,7 @@ namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\Differ\genDiff;
+use function Gendiff\Differ\gendiff;
 
 class JsonFormatterTest extends TestCase
 {
@@ -14,7 +14,7 @@ class JsonFormatterTest extends TestCase
         $path1 = __DIR__ . '/fixtures/file1.json';
         $path2 = __DIR__ . '/fixtures/file2.json';
 
-        $result = genDiff($path1, $path2, 'json');
+        $result = gendiff($path1, $path2, 'json');
 
         $this->assertJsonStringEqualsJsonString(
             file_get_contents($expectedFile),

@@ -14,15 +14,17 @@ function formatStylish(array $tree, int $depth = 1): string
                 $children = formatStylish($node['children'], $depth + 1);
                 return "{$currentIndent}  {$node['key']}: {$children}";
             case 'added':
-                return "{$currentIndent}+ {$node['key']}: " . stringify($node['value'], $depth);
+                return "{$currentIndent}+ {$node['key']}: " . stringify($node['value'], $depth + 1);
             case 'removed':
-                return "{$currentIndent}- {$node['key']}: " . stringify($node['value'], $depth);
+                return "{$currentIndent}- {$node['key']}: " . stringify($node['value'], $depth + 1);
             case 'unchanged':
-                return "{$currentIndent}  {$node['key']}: " . stringify($node['value'], $depth);
+                return "{$currentIndent}  {$node['key']}: " . stringify($node['value'], $depth + 1);
             case 'changed':
-                $old = "{$currentIndent}- {$node['key']}: " . stringify($node['oldValue'], $depth);
-                $new = "{$currentIndent}+ {$node['key']}: " . stringify($node['newValue'], $depth);
+                $old = "{$currentIndent}- {$node['key']}: " . stringify($node['oldValue'], $depth + 1);
+                $new = "{$currentIndent}+ {$node['key']}: " . stringify($node['newValue'], $depth + 1);
                 return "{$old}\n{$new}";
+            default:
+                throw new \Exception("Unknown node type: {$node['type']}");
         }
     }, $tree);
 
@@ -41,10 +43,14 @@ function stringify($value, int $depth): string
     $indentSize = 4;
     $currentIndent = str_repeat(' ', $depth * $indentSize);
     $bracketIndent = str_repeat(' ', ($depth - 1) * $indentSize);
+
     $lines = array_map(
-        fn($k, $v) => "{$currentIndent}{$k}: " . stringify($v, $depth + 1),
+        function ($k, $v) use ($depth, $currentIndent) {
+            return "{$currentIndent}{$k}: " . stringify($v, $depth + 1);
+        },
         array_keys($value),
         $value
     );
+
     return "{\n" . implode("\n", $lines) . "\n{$bracketIndent}}";
 }
