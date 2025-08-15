@@ -4,7 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\gendiff;
+use function Gendiff\genDiff;
 
 class DiffNestedJsonTest extends TestCase
 {
@@ -60,6 +60,6 @@ class DiffNestedJsonTest extends TestCase
 }
 TEXT;
 
-        $this->assertSame($expected, gendiff($file1, $file2, 'stylish'));
+        $this->assertSame($expected, genDiff($file1, $file2, 'stylish'));
     }
 }

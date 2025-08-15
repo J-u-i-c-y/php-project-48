@@ -4,7 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\gendiff;
+use function Gendiff\genDiff;
 
 class DiffPlainTest extends TestCase
 {
@@ -27,6 +27,6 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
 TEXT;
 
-        $this->assertSame($expected, gendiff($file1, $file2, 'plain'));
+        $this->assertSame($expected, genDiff($file1, $file2, 'plain'));
     }
 }

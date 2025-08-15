@@ -4,7 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\gendiff;
+use function Gendiff\genDiff;
 
 class DiffYamlTest extends TestCase
 {
@@ -24,6 +24,6 @@ class DiffYamlTest extends TestCase
 }
 TEXT;
 
-        $this->assertSame($expected, gendiff($file1, $file2));
+        $this->assertSame($expected, genDiff($file1, $file2));
     }
 }

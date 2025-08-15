@@ -5,7 +5,7 @@ namespace Gendiff;
 use function Gendiff\Parsers\parse;
 use function Gendiff\Formatters\format;
 
-function gendiff(string $path1, string $path2, string $formatName = 'stylish'): string
+function genDiff(string $path1, string $path2, string $formatName = 'stylish'): string
 {
     $data1 = parse($path1);
     $data2 = parse($path2);
