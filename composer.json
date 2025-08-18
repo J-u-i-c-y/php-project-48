@@ -2,16 +2,8 @@
     "name": "hexlet/code",
     "autoload": {
         "psr-4": {
-            "Differ\\": "src/"
-        },
-        "files": [
-            "src/Differ.php",
-            "src/Parsers.php",
-            "src/Formatters/format.php",
-            "src/Formatters/Stylish.php",
-            "src/Formatters/Plain.php",
-            "src/Formatters/Json.php"
-        ]
+            "Differ\\": "src/Differ/"
+        }
     },
     "bin": ["gendiff"],
     "autoload-dev": {
