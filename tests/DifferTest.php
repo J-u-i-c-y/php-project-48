@@ -12,8 +12,8 @@ class DifferTest extends TestCase
     {
         $jsonPath1 = $this->getFixtureFullPath('file1.json');
         $jsonPath2 = $this->getFixtureFullPath('file2.json');
-        $yamlPath1 = $this->getFixtureFullPath('file1.yaml');
-        $yamlPath2 = $this->getFixtureFullPath('file2.yaml');
+        $yamlPath1 = $this->getFixtureFullPath('file1.yml');
+        $yamlPath2 = $this->getFixtureFullPath('file2.yml');
 
         $expectedStylish = $this->getContentFixture('stylish.txt');
         $this->assertEquals($expectedStylish, genDiff($jsonPath1, $jsonPath2));

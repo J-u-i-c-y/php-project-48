@@ -45,7 +45,7 @@ function iter(array $tree, string $path = ''): array
 
 function stringifyPlain($value): string
 {
-    if (is_array($value)) {
+    if (is_array($value) || is_object($value)) {
         return '[complex value]';
     }
     if (is_bool($value)) {
