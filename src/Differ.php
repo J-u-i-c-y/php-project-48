@@ -2,8 +2,12 @@
 
 namespace Differ\Differ;
 
-use function Differ\Parser\parse;
+use Exception;
+
+use function Functional\sort;
+use function Functional\reduce_left;
 use function Differ\Parser\getContentFile;
+use function Differ\Parser\parse;
 use function Differ\Formatter\format;
 
 function genDiff(string $filepath1, string $filepath2, string $format = 'stylish'): string
@@ -21,17 +25,13 @@ function genDiff(string $filepath1, string $filepath2, string $format = 'stylish
 
 function buildDiff(object $file1Data, object $file2Data): array
 {
+    $keys1 = array_keys(get_object_vars($file1Data));
+    $keys2 = array_keys(get_object_vars($file2Data));
+    $allKeys = array_unique(array_merge($keys1, $keys2));
 
-    $allKeys = array_unique(array_merge(
-        array_keys(get_object_vars($file1Data)),
-        array_keys(get_object_vars($file2Data))
-    ));
+    $sortedKeys = sort($allKeys, fn($a, $b) => strcmp($a, $b));
 
-    sort($allKeys);
-
-    $diff = [];
-
-    foreach ($allKeys as $key) {
+    return reduce_left($sortedKeys, function ($key, $index, $collection, $reduction) use ($file1Data, $file2Data) {
         $hasKey1 = property_exists($file1Data, $key);
         $hasKey2 = property_exists($file2Data, $key);
         $value1 = $file1Data->$key ?? null;
@@ -49,8 +49,6 @@ function buildDiff(object $file1Data, object $file2Data): array
             default => ['type' => 'changed', 'key' => $key, 'oldValue' => $value1, 'newValue' => $value2],
         };
 
-        $diff[] = $node;
-    }
-
-    return $diff;
+        return array_merge($reduction, [$node]);
+    }, []);
 }
