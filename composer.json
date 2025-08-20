@@ -10,7 +10,9 @@
             "src/Parser.php"
         ]
     },
-    "bin": ["gendiff"],
+    "bin": [
+        "bin/gendiff"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
