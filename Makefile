@@ -1,8 +1,16 @@
+install:
+	composer install
+validate:
+	composer validate
 lint:
-	vendor/bin/phpcs --standard=PSR12 src/ tests/
-
+	composer exec --verbose phpcs -- --standard=PSR12 src bin
+lint-fix:
+	composer exec --verbose phpcbf -- --standard=PSR12 src tests
 test:
-	vendor/bin/phpunit
-
-coverage:
-	vendor/bin/phpunit --coverage-clover=coverage.xml
+	composer exec --verbose phpunit tests
+test-coverage:
+	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+test-coverage-text:
+	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text
+stan:
+	./vendor/bin/phpstan analyse
