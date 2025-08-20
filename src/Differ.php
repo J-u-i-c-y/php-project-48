@@ -21,15 +21,12 @@ function genDiff(string $filepath1, string $filepath2, string $format = 'stylish
 
 function buildDiff(object $file1Data, object $file2Data): array
 {
-    // $keys1 = array_keys(get_object_vars($file1Data));
-    // $keys2 = array_keys(get_object_vars($file2Data));
-    // $allKeys = array_unique(array_merge($keys1, $keys2));
-    // $sortedKeys = usort($allKeys, fn($a, $b) => strcmp($a, $b));
 
     $allKeys = array_unique(array_merge(
         array_keys(get_object_vars($file1Data)),
         array_keys(get_object_vars($file2Data))
     ));
+
     sort($allKeys);
 
     $diff = [];
@@ -56,24 +53,4 @@ function buildDiff(object $file1Data, object $file2Data): array
     }
 
     return $diff;
-    // return reduce_left($sortedKeys, function ($key, $index, $collection, $reduction) use ($file1Data, $file2Data) {
-    //     $hasKey1 = property_exists($file1Data, $key);
-    //     $hasKey2 = property_exists($file2Data, $key);
-    //     $value1 = $file1Data->$key ?? null;
-    //     $value2 = $file2Data->$key ?? null;
-
-    //     $node = match (true) {
-    //         $hasKey1 && !$hasKey2 => ['type' => 'removed', 'key' => $key, 'value' => $value1],
-    //         !$hasKey1 && $hasKey2 => ['type' => 'added', 'key' => $key, 'value' => $value2],
-    //         is_object($value1) && is_object($value2) => [
-    //             'type' => 'nested',
-    //             'key' => $key,
-    //             'children' => buildDiff($value1, $value2)
-    //         ],
-    //         $value1 === $value2 => ['type' => 'unchanged', 'key' => $key, 'value' => $value1],
-    //         default => ['type' => 'changed', 'key' => $key, 'oldValue' => $value1, 'newValue' => $value2],
-    //     };
-
-    //     return array_merge($reduction, [$node]);
-    // }, []);
 }

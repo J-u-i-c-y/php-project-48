@@ -2,60 +2,53 @@
 
 namespace Differ\Formatters\Plain;
 
-function formatPlain(array $tree): string
+use function Functional\map;
+
+function stringifyPlainValue(mixed $value): string
 {
-    $lines = iter($tree);
-    return implode("\n", $lines);
-}
-
-function iter(array $tree, string $path = ''): array
-{
-    $lines = [];
-
-    foreach ($tree as $node) {
-        $property = $path === '' ? $node['key'] : "{$path}.{$node['key']}";
-
-        switch ($node['type']) {
-            case 'nested':
-                $lines = array_merge($lines, iter($node['children'], $property));
-                break;
-
-            case 'added':
-                $lines[] = "Property '{$property}' was added with value: " . stringifyPlain($node['value']);
-                break;
-
-            case 'removed':
-                $lines[] = "Property '{$property}' was removed";
-                break;
-
-            case 'changed':
-                $lines[] = "Property '{$property}' was updated. From "
-                    . stringifyPlain($node['oldValue'])
-                    . " to "
-                    . stringifyPlain($node['newValue']);
-                break;
-
-            case 'unchanged':
-                break;
-        }
-    }
-
-    return $lines;
-}
-
-function stringifyPlain($value): string
-{
-    if (is_array($value) || is_object($value)) {
+    if (is_object($value) || is_array($value)) {
         return '[complex value]';
     }
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
-    if ($value === null) {
+    if (is_null($value)) {
         return 'null';
     }
     if (is_string($value)) {
         return "'{$value}'";
     }
     return (string)$value;
+}
+
+function formatPlain(array $diff, string $parentKey = ''): string
+{
+    $processNode = function ($node) use ($parentKey) {
+        $key = $node['key'];
+        $fullKey = $parentKey !== '' ? "{$parentKey}.{$key}" : $key;
+        $type = $node['type'];
+
+        switch ($type) {
+            case 'nested':
+                return formatPlain($node['children'], $fullKey);
+            case 'added':
+                $value = stringifyPlainValue($node['value']);
+                return "Property '{$fullKey}' was added with value: {$value}";
+            case 'removed':
+                return "Property '{$fullKey}' was removed";
+            case 'changed':
+                $oldValue = stringifyPlainValue($node['oldValue']);
+                $newValue = stringifyPlainValue($node['newValue']);
+                return "Property '{$fullKey}' was updated. From {$oldValue} to {$newValue}";
+            case 'unchanged':
+                return null;
+            default:
+                throw new \Exception("Unknown node type: {$type}");
+        }
+    };
+
+    $lines = map($diff, $processNode);
+    $filteredLines = array_filter($lines, fn($line) => $line !== null);
+
+    return implode("\n", $filteredLines);
 }
