@@ -22,11 +22,16 @@ function genDiff(string $filepath1, string $filepath2, string $format = 'stylish
 function parseFile(string $filepath): object
 {
     $content = file_get_contents($filepath);
+    if ($content === false) {
+        throw new \RuntimeException("Cannot read file: {$filepath}");
+    }
+
     $extension = pathinfo($filepath, PATHINFO_EXTENSION);
     $data = parse($content, $extension);
 
     return arrayToObject($data);
 }
+
 
 function arrayToObject(mixed $data): mixed
 {
@@ -35,7 +40,6 @@ function arrayToObject(mixed $data): mixed
     }
     return $data;
 }
-
 
 function buildDiff(object $file1Data, object $file2Data): array
 {
