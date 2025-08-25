@@ -19,7 +19,7 @@ class DifferTest extends TestCase
     public static function filesProvider(): array
     {
         $fixturesDir = __DIR__ . '/Fixtures';
-        
+
         $json1 = realpath($fixturesDir . '/file1.json');
         $json2 = realpath($fixturesDir . '/file2.json');
         $yaml1 = realpath($fixturesDir . '/file1.yml');
@@ -46,28 +46,3 @@ class DifferTest extends TestCase
         return file_get_contents($this->getFixtureFullPath($fixtureName));
     }
 }
-
-    
-
-
-
-// class UserTest extends TestCase
-// {
-//     #[DataProvider('userDataProvider')]
-//     public function testGetName(string $name, array $children): void
-//     {
-//         $user = new User($name, $children);
-
-//         $this->assertEquals($name, $user->getName());
-//         $this->assertEquals(collect($children), $user->getChildren());
-//     }
-
-//     public static function userDataProvider(): array
-//     {
-//         return [
-//             'one·child' => ['john', [new User('Mark')]],
-//             'no children' => ['anna', []],
-//             'two children' => ['alice', [new User('Tom'), new User('Eva')]],
-//         ];
-//     }
-// }
