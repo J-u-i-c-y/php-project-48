@@ -12,16 +12,30 @@ use function Differ\Formatter\format;
 
 function genDiff(string $filepath1, string $filepath2, string $format = 'stylish'): string
 {
-    $extension1 = pathinfo($filepath1, PATHINFO_EXTENSION);
-    $extension2 = pathinfo($filepath2, PATHINFO_EXTENSION);
-    $file1Content = getContentFile($filepath1);
-    $file2Content = getContentFile($filepath2);
-    $file1Data = parse($file1Content, $extension1);
-    $file2Data = parse($file2Content, $extension2);
+    $file1Data = parseFile($filepath1);
+    $file2Data = parseFile($filepath2);
 
     $diff = buildDiff($file1Data, $file2Data);
     return format($diff, $format);
 }
+
+function parseFile(string $filepath): object
+{
+    $content = file_get_contents($filepath);
+    $extension = pathinfo($filepath, PATHINFO_EXTENSION);
+    $data = parse($content, $extension);
+
+    return arrayToObject($data);
+}
+
+function arrayToObject(mixed $data): mixed
+{
+    if (is_array($data)) {
+        return (object) array_map(fn($item) => arrayToObject($item), $data);
+    }
+    return $data;
+}
+
 
 function buildDiff(object $file1Data, object $file2Data): array
 {

@@ -6,12 +6,13 @@ use Exception;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
-function parse(string $content, string $format): object
+function parse(string $content, string $extension): mixed
 {
-    return match ($format) {
+    return match(strtolower($extension)) {
         'json' => json_decode($content),
-        'yaml', 'yml' => Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP),
-        default => throw new InvalidArgumentException("Unsupported data format: '$format'. Expected 'json' or 'yaml'."),
+        'yml', 'yaml' => Yaml::parse($content),
+        'ini' => parse_ini_string($content, true),
+        default => throw new \Exception("Unsupported file format: {$extension}"),
     };
 }
 
