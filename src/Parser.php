@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
 
 function parse(string $content, string $extension): mixed
 {
-    return match(strtolower($extension)) {
+    return match (strtolower($extension)) {
         'json' => json_decode($content),
         'yml', 'yaml' => Yaml::parse($content),
         'ini' => parse_ini_string($content, true),
