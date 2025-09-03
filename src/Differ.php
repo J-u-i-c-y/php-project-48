@@ -8,13 +8,22 @@ use function Functional\sort;
 use function Functional\reduce_left;
 use function Differ\Parser\getContentFile;
 use function Differ\Parser\parse;
-use function Differ\Parser\parseFile;
+use function Differ\Parser\arrayToObject;
 use function Differ\Formatter\format;
 
 function genDiff(string $filepath1, string $filepath2, string $format = 'stylish'): string
 {
-    $file1Data = parseFile($filepath1);
-    $file2Data = parseFile($filepath2);
+    $content1 = getContentFile($filepath1);
+    $content2 = getContentFile($filepath2);
+
+    $ext1 = pathinfo($filepath1, PATHINFO_EXTENSION);
+    $ext2 = pathinfo($filepath2, PATHINFO_EXTENSION);
+
+    $data1 = parse($content1, $ext1);
+    $data2 = parse($content2, $ext2);
+
+    $file1Data = arrayToObject($data1);
+    $file2Data = arrayToObject($data2);
 
     $diff = buildDiff($file1Data, $file2Data);
     return format($diff, $format);

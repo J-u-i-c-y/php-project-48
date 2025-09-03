@@ -25,19 +25,6 @@ function getContentFile(string $filepath): string
     return $content;
 }
 
-function parseFile(string $filepath): object
-{
-    $content = file_get_contents($filepath);
-    if ($content === false) {
-        throw new \RuntimeException("Cannot read file: {$filepath}");
-    }
-
-    $extension = pathinfo($filepath, PATHINFO_EXTENSION);
-    $data = parse($content, $extension);
-
-    return arrayToObject($data);
-}
-
 function arrayToObject(mixed $data): mixed
 {
     if (is_array($data)) {
