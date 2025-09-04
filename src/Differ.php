@@ -6,27 +6,29 @@ use Exception;
 
 use function Functional\sort;
 use function Functional\reduce_left;
-use function Differ\Parser\getContentFile;
 use function Differ\Parser\parse;
-use function Differ\Parser\arrayToObject;
 use function Differ\Formatter\format;
 
 function genDiff(string $filepath1, string $filepath2, string $format = 'stylish'): string
 {
-    $content1 = getContentFile($filepath1);
-    $content2 = getContentFile($filepath2);
-
-    $ext1 = pathinfo($filepath1, PATHINFO_EXTENSION);
-    $ext2 = pathinfo($filepath2, PATHINFO_EXTENSION);
+    list($content1, $ext1) = getContentFile($filepath1);
+    list($content2, $ext2) = getContentFile($filepath2);
 
     $data1 = parse($content1, $ext1);
     $data2 = parse($content2, $ext2);
 
-    $file1Data = arrayToObject($data1);
-    $file2Data = arrayToObject($data2);
-
-    $diff = buildDiff($file1Data, $file2Data);
+    $diff = buildDiff($data1, $data2);
     return format($diff, $format);
+}
+
+function getContentFile(string $filepath): array
+{
+    $content = file_get_contents($filepath);
+    if ($content === false) {
+        throw new Exception('Unable to read file: ' . $filepath);
+    }
+    $ext = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
+    return [$content, $ext];
 }
 
 function buildDiff(object $file1Data, object $file2Data): array
